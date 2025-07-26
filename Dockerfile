@@ -1,5 +1,6 @@
 # Этап сборки: Используем официальный образ Go для сборки приложения
-FROM golang:1.22-alpine AS builder
+FROM golang:1.24-alpine AS builder 
+# Или golang:latest-alpine для самой новой версии
 
 # Устанавливаем необходимые зависимости для сборки (если есть)
 RUN apk add --no-cache git
