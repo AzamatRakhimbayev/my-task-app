@@ -13,7 +13,7 @@ services:
       db:
         condition: service_healthy
     environment:
-      DATABASE_URL: postgres://your_user:your_password@db:5432/your_db_name?sslmode=disable
+      DATABASE_URL: postgres://postgres:906900@db:5432/tracker?sslmode=disable
       # Раскомментируйте и добавьте свои API ключи, если вы их используете
       # OPENAI_API_KEY: your_openai_api_key
       # GOOGLE_API_KEY: your_google_api_key
