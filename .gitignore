@@ -1,0 +1,28 @@
+# Go
+*.exe
+*.dll
+*.so
+*.dylib
+*.o
+*.a
+*.ko
+*.mod # go.mod не игнорируем, go.sum игнорируем только если не хочется лишних коммитов.
+go.sum
+/bin/
+/obj/
+/pkg/
+/.vscode/
+
+# Environment variables
+.env
+
+# Docker
+.dockerignore
+/build/
+
+# IDE
+.idea/
+.DS_Store
+
+# Local database data
+db_data/

@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  # Сервис для вашего Go-бэкенда
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      # Фиксированный, но произвольный пятизначный порт 47385
+      - "47385:8080" # Внешний порт хоста:Внутренний порт контейнера
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://your_user:your_password@db:5432/your_db_name?sslmode=disable
+      # Раскомментируйте и добавьте свои API ключи, если вы их используете
+      # OPENAI_API_KEY: your_openai_api_key
+      # GOOGLE_API_KEY: your_google_api_key
+    restart: on-failure
+    volumes:
+      - .:/app
+
+  # Сервис для базы данных PostgreSQL
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: tracker
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 906900
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432" # Оставляем порт БД фиксированным, т.к. бэкенд на него ориентируется
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db_data:
